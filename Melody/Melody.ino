@@ -1,20 +1,12 @@
-/* 
- Educational BoosterPack MK II - Birthday Tune
-http://boosterpackdepot.info/wiki/index.php?title=Educational_BoosterPack_MK_II
- 
- Play birthday tune through the buzzer, demonstrating
- buzzer tune() API and pitch/tone (hence music) generation
- 
- Dec 2012 - Created for Educational BoosterPack
-            buzzer Pin = 19
- Dec 2013 - Modified for Educational BoosterPack MK II
-            buzzer Pin = 40
- by Dung Dang
- 
- */
+
 #include "pitches.h" 
+#include <Servo.h> 
 #define NOTE_C4_1 260
  
+Servo myservo;  // create servo object to control a servo 
+                // a maximum of eight servo objects can be created 
+ 
+int pos = 0;    // variable to store the servo position 
 
 int buzzerPin = 5;
 
@@ -40,8 +32,8 @@ int noteDurations[] = {
 
 void setup() 
 {
+  myservo.attach(9);
 pinMode(buzzerPin,OUTPUT);
-
 }
 void loop() 
 {
@@ -59,6 +51,16 @@ void loop()
     
     noTone(buzzerPin);                // stop the tone playing
   }
+  for(pos = 0; pos < 180; pos += 1)  // goes from 0 degrees to 180 degrees 
+  {                                  // in steps of 1 degree 
+    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+    delay(15);                       // waits 15ms for the servo to reach the position 
+  } 
+  for(pos = 180; pos>=1; pos-=1)     // goes from 180 degrees to 0 degrees 
+  {                                
+    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+    delay(15);                       // waits 15ms for the servo to reach the position 
+  } 
  
  } 
 
